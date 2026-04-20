@@ -7,10 +7,9 @@ import { GitHubIcon, DiscordIcon } from "@/components/ui/icons";
 import { GITHUB_URL } from "@/lib/constants";
 
 const navLinks = [
-  { href: "#home",     label: "Home" },
-  { href: "#comandos", label: "Comandos" },
-  { href: "#recursos", label: "Recursos" },
-  { href: "#",         label: "Status" },
+  { href: "/#home",     label: "Home" },
+  { href: "/#comandos", label: "Comandos" },
+  { href: "/#recursos", label: "Recursos" },
 ];
 
 export default function Navbar() {
