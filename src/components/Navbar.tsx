@@ -1,6 +1,9 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
-import { GitHubIcon } from "@/components/ui/icons";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { GitHubIcon, DiscordIcon } from "@/components/ui/icons";
 import { GITHUB_URL } from "@/lib/constants";
 
 const navLinks = [
@@ -11,6 +14,8 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { data: session, status } = useSession();
+
   return (
     <nav
       className="fixed inset-x-0 top-0 z-[999] flex items-center justify-between border-b border-[var(--border)]"
@@ -22,7 +27,7 @@ export default function Navbar() {
         WebkitBackdropFilter: "blur(18px)",
       }}
     >
-      <Link href="#home" className="flex items-center gap-2 text-[1.35rem] font-black tracking-[-0.5px]">
+      <Link href="/" className="flex items-center gap-2 text-[1.35rem] font-black tracking-[-0.5px]">
         <Image
           src="/miwbot-logo.png"
           alt="Miwbot logo"
@@ -41,11 +46,47 @@ export default function Navbar() {
         ))}
       </ul>
 
-      <div className="flex gap-2.5">
+      <div className="flex items-center gap-2.5">
         <Link href={GITHUB_URL} target="_blank" rel="noopener"
           className="btn btn-ghost hidden md:inline-flex">
           <GitHubIcon /> GitHub
         </Link>
+
+        {status === "loading" ? (
+          <div className="btn btn-ghost opacity-50" style={{ minWidth: 110 }}>
+            <span style={{ fontSize: "0.75rem", color: "var(--muted)" }}>Carregando...</span>
+          </div>
+        ) : session ? (
+          <div className="flex items-center gap-2.5">
+            <Link href="/dashboard" className="btn btn-discord" style={{ padding: "0.45rem 0.9rem" }}>
+              {session.user?.image && (
+                <Image
+                  src={session.user.image}
+                  alt={session.user.name ?? "avatar"}
+                  width={22}
+                  height={22}
+                  className="rounded-full"
+                />
+              )}
+              Dashboard
+            </Link>
+            <button
+              onClick={() => signOut()}
+              className="btn btn-ghost"
+              style={{ padding: "0.45rem 0.8rem", fontSize: "0.8rem" }}
+            >
+              Sair
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => signIn("discord")}
+            className="btn btn-discord"
+          >
+            <DiscordIcon />
+            Login
+          </button>
+        )}
       </div>
     </nav>
   );
