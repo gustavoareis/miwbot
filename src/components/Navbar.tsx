@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { GitHubIcon, DiscordIcon } from "@/components/ui/icons";
+import { GitHubIcon } from "@/components/ui/icons";
 import { GITHUB_URL } from "@/lib/constants";
 
 const navLinks = [
@@ -45,9 +45,6 @@ export default function Navbar() {
         <Link href={GITHUB_URL} target="_blank" rel="noopener"
           className="btn btn-ghost hidden md:inline-flex">
           <GitHubIcon /> GitHub
-        </Link>
-        <Link href="#" className="btn btn-discord">
-          <DiscordIcon /> Adicionar ao Discord
         </Link>
       </div>
     </nav>
