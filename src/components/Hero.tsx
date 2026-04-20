@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { DiscordIcon, GitHubIcon } from "@/components/ui/icons";
 import { GITHUB_URL } from "@/lib/constants";
 
@@ -16,13 +18,12 @@ export default function Hero() {
       <div aria-hidden="true" style={{
         position: "absolute",
         inset: 0,
-        backgroundImage: "url('/miwbot-logo.png')",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
         transform: "scale(1.08)",
         filter: "brightness(.22) blur(1.5px)",
         transition: "transform 10s ease",
-      }} />
+      }}>
+        <Image src="/miwbot-logo.png" alt="" fill style={{ objectFit: "cover" }} priority />
+      </div>
 
       <div aria-hidden="true" style={{
         position: "absolute",
@@ -59,7 +60,7 @@ export default function Hero() {
           letterSpacing: ".04em",
           marginBottom: "1.5rem",
         }}>
-          ✦&nbsp; open source · Discord bot
+          <Sparkles size={12} />&nbsp; open source · Discord bot
         </div>
 
         <h1 style={{

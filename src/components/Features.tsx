@@ -1,20 +1,24 @@
-import SectionHeader from "@/components/SectionHeader";
+"use client";
 
-const features = [
+import { Music2, Bot, GitFork } from "lucide-react";
+import SectionHeader from "@/components/SectionHeader";
+import type { ReactNode } from "react";
+
+const features: { icon: ReactNode; iconBg: string; title: string; description: string }[] = [
   {
-    icon: "🎵",
+    icon: <Music2 size={22} />,
     iconBg: "rgba(88,101,242,.15)",
     title: "Música de qualidade",
     description: "Reprodução direta do YouTube e Spotify com suporte a filas, playlists e álbuns completos.",
   },
   {
-    icon: "🤖",
+    icon: <Bot size={22} />,
     iconBg: "rgba(168,85,247,.15)",
     title: "Inteligência Artificial",
     description: "Chat com IA usando o modelo Llama 3.3 70B via Groq — respostas rápidas direto no Discord.",
   },
   {
-    icon: "🔓",
+    icon: <GitFork size={22} />,
     iconBg: "rgba(236,72,153,.15)",
     title: "Open Source",
     description: "100% código aberto sob licença MIT. Contribua, customize ou hospede no seu próprio servidor.",
@@ -38,12 +42,21 @@ export default function Features() {
           gap: "1.25rem",
         }}>
           {features.map(({ icon, iconBg, title, description }) => (
-            <div key={title} className="feature-card">
+            <div
+              key={title}
+              className="feature-card"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+              }}
+            >
               <div style={{
                 width: 50, height: 50, borderRadius: 12,
                 display: "grid", placeItems: "center",
-                fontSize: "1.4rem", marginBottom: "1.25rem",
+                marginBottom: "1.25rem",
                 background: iconBg,
+                color: "#fff",
               }}>
                 {icon}
               </div>

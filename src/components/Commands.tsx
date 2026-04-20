@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Music2, Bot } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 
 const musicCommands = [
+  { name: ".join",         desc: "Conecta ao canal de voz" },
+  { name: ".leave",        desc: "Desconecta do canal de voz" },
   { name: ".play <query>", desc: "Toca uma música ou adiciona à fila — YouTube, Spotify ou busca por texto" },
   { name: ".queue",        desc: "Exibe a fila atual e o que está tocando" },
   { name: ".skip",         desc: "Pula para a próxima música" },
@@ -11,7 +14,6 @@ const musicCommands = [
   { name: ".resume",       desc: "Retoma a reprodução" },
   { name: ".stop",         desc: "Para a música atual" },
   { name: ".clear",        desc: "Limpa a fila e para a reprodução" },
-  { name: ".leave",        desc: "Desconecta do canal de voz" },
 ];
 
 const aiCommands = [
@@ -19,8 +21,8 @@ const aiCommands = [
 ];
 
 const tabs = [
-  { id: "music", label: "🎵\u00a0 Música", commands: musicCommands },
-  { id: "ai",    label: "🤖\u00a0 IA",     commands: aiCommands },
+  { id: "music", icon: <Music2 size={15} />, label: "Música", commands: musicCommands },
+  { id: "ai",    icon: <Bot size={15} />,    label: "IA",     commands: aiCommands },
 ];
 
 function CommandTable({ commands }: { commands: { name: string; desc: string }[] }) {
@@ -70,7 +72,7 @@ export default function Commands() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <SectionHeader
           label="Comandos"
-          title="Referência rápida"
+          title="Veja todos os comandos disponíveis"
           description={
             <>
               Prefixo padrão:{" "}
@@ -88,31 +90,86 @@ export default function Commands() {
           }
         />
 
-        <div role="tablist" style={{
-          display: "flex",
-          gap: ".5rem",
-          marginBottom: "1.5rem",
-          borderBottom: "1px solid var(--border)",
-          paddingBottom: ".6rem",
+        {/* macOS window */}
+        <div style={{
+          borderRadius: 12,
+          overflow: "hidden",
+          border: "1px solid var(--border)",
+          boxShadow: "0 20px 60px rgba(0,0,0,.35)",
         }}>
-          {tabs.map(({ id, label }) => (
-            <button
-              key={id}
-              role="tab"
-              aria-selected={active === id}
-              onClick={() => setActive(id)}
-              className={`tab${active === id ? " active" : ""}`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {tabs.map(({ id, commands }) => (
-          <div key={id} role="tabpanel" hidden={active !== id}>
-            <CommandTable commands={commands} />
+          {/* title bar */}
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: ".5rem",
+            padding: ".75rem 1rem",
+            background: "rgba(255,255,255,.04)",
+            borderBottom: "1px solid var(--border)",
+          }}>
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#ff5f57", display: "inline-block" }} />
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#febc2e", display: "inline-block" }} />
+            <span style={{ width: 12, height: 12, borderRadius: "50%", background: "#28c840", display: "inline-block" }} />
           </div>
-        ))}
+
+          {/* body: sidebar + content */}
+          <div style={{ display: "flex", background: "rgba(255,255,255,.02)" }}>
+
+            {/* sidebar tabs */}
+            <div
+              role="tablist"
+              aria-orientation="vertical"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: ".25rem",
+                padding: "1rem .75rem",
+                borderRight: "1px solid var(--border)",
+                minWidth: 120,
+                background: "rgba(255,255,255,.02)",
+              }}
+            >
+              {tabs.map(({ id, icon, label }) => (
+                <button
+                  key={id}
+                  role="tab"
+                  aria-selected={active === id}
+                  onClick={() => setActive(id)}
+                  className={`tab${active === id ? " active" : ""}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: ".45rem",
+                    justifyContent: "flex-start",
+                    width: "100%",
+                    marginBottom: 0,
+                  }}
+                >
+                  {icon}
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {/* content — grid overlap keeps height = tallest tab */}
+            <div style={{ flex: 1, display: "grid" }}>
+              {tabs.map(({ id, commands }) => (
+                <div
+                  key={id}
+                  role="tabpanel"
+                  aria-hidden={active !== id}
+                  style={{
+                    gridArea: "1 / 1",
+                    visibility: active !== id ? "hidden" : "visible",
+                    pointerEvents: active !== id ? "none" : "auto",
+                  }}
+                >
+                  <CommandTable commands={commands} />
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
   );

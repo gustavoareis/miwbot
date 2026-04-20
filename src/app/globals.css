@@ -98,20 +98,42 @@ a { text-decoration: none; }
 
 /* ── Feature cards ── */
 .feature-card {
+  position: relative;
   background: #0f0f1a;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 2rem;
   transition: transform .25s, border-color .25s, box-shadow .25s;
+  overflow: hidden;
 }
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(168, 85, 247, 0.12),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity .35s;
+  pointer-events: none;
+  z-index: 0;
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-card > * { position: relative; z-index: 1; }
 .feature-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(124, 58, 237, 0.3);
+  border-color: rgba(124, 58, 237, 0.35);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
 
 /* ── Tabs ── */
 .tab {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
   padding: .45rem 1.1rem;
   border-radius: 7px;
   border: 1px solid transparent;

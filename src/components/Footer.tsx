@@ -8,19 +8,15 @@ export default function Footer() {
       padding: "2rem clamp(1rem, 4vw, 3rem)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
+      justifyContent: "center",
       flexWrap: "wrap",
       gap: "1rem",
       color: "var(--muted)",
       fontSize: ".85rem",
     }}>
       <span>
-        © 2025 <strong style={{ color: "#fff" }}>Miwbot</strong> — Todos os direitos reservados
+        © 2025 <strong style={{ color: "var(--purple)" }}>Miwbot</strong> — Todos os direitos reservados
       </span>
-      <div className="footer-links">
-        <Link href={GITHUB_URL} target="_blank" rel="noopener" className="footer-link">GitHub</Link>
-        <Link href={`${GITHUB_URL}/blob/main/LICENSE`} target="_blank" rel="noopener" className="footer-link">MIT License</Link>
-      </div>
     </footer>
   );
 }
