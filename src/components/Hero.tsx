@@ -90,7 +90,7 @@ export default function Hero() {
         </p>
 
         <div style={{ display: "flex", gap: ".9rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href="#" className="btn btn-lg btn-hero-discord">
+          <Link href="https://discord.com/oauth2/authorize?client_id=1465377425516138538" target="_blank" rel="noopener" className="btn btn-lg btn-hero-discord">
             <DiscordIcon size={20} /> Adicionar ao meu servidor
           </Link>
           <Link href={GITHUB_URL} target="_blank" rel="noopener" className="btn btn-lg btn-hero-ghost">
