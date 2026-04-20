@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg:      #08080f;
+  --color-surface: #0f0f1a;
+  --color-discord: #5865F2;
+  --color-purple:  #7c3aed;
+  --color-violet:  #a855f7;
+  --color-pink:    #ec4899;
+  --color-muted:   #64748b;
+  --color-foreground: #e2e8f0;
+}
+
+:root {
+  --bg:      #08080f;
+  --surface: #0f0f1a;
+  --border:  rgba(255, 255, 255, 0.06);
+  --discord: #5865F2;
+  --purple:  #7c3aed;
+  --violet:  #a855f7;
+  --pink:    #ec4899;
+  --text:    #e2e8f0;
+  --muted:   #64748b;
+  --nav-h:   64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #08080f;
+  color: #e2e8f0;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; }
+
+.grad {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-discord { background: #5865F2; color: #fff; }
+.btn-discord:hover {
+  background: #4752d6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.45);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.2); color: #fff; }
+
+.btn-lg { padding: 0.875rem 2rem; font-size: 1rem; border-radius: 10px; }
+
+.btn-hero-discord {
+  background: linear-gradient(135deg, #5865F2, #7c3aed);
+  color: #fff;
+  box-shadow: 0 6px 28px rgba(88, 101, 242, 0.4);
+}
+.btn-hero-discord:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(88, 101, 242, 0.55);
+}
+
+.btn-hero-ghost {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+}
+.btn-hero-ghost:hover { background: rgba(255, 255, 255, 0.13); transform: translateY(-2px); }
+
+/* ── Nav links ── */
+.nav-link { color: #64748b; font-size: .875rem; font-weight: 500; transition: color .2s; }
+.nav-link:hover { color: #e2e8f0; }
+
+/* ── Feature cards ── */
+.feature-card {
+  background: #0f0f1a;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(124, 58, 237, 0.3);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Tabs ── */
+.tab {
+  padding: .45rem 1.1rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: .875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.tab.active, .tab:hover {
+  background: rgba(124,58,237,.15);
+  border-color: rgba(124,58,237,.3);
+  color: var(--violet);
+}
+
+/* ── Command table rows ── */
+.cmd-row { border-bottom: 1px solid rgba(255, 255, 255, 0.025); transition: background .15s; }
+.cmd-row:hover { background: rgba(255, 255, 255, 0.03); }
+
+/* ── Footer ── */
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-link { color: #a855f7; transition: color .2s; }
+.footer-link:hover { color: #ec4899; }
+
+@media (max-width: 768px) {
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+
+/* ── Animations ── */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
